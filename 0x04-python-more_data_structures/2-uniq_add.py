@@ -7,5 +7,3 @@ def uniq_add(my_list=[]):
         count += n
 
     return(count)
-
-
