@@ -2,6 +2,7 @@
 class Square:
     """ A class that defines a square by its size
     """
+
     def __eq__(self, other):
         return self.__size == other.__size
 
