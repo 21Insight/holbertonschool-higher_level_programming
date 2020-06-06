@@ -1,57 +1,128 @@
 #!/usr/bin/python3
-class Node:
-    def __init__(self, data, next_node=None):
-        self.data = data
-        self.next_node = next_node
-
-    @property
-    def data(self):
-        return self.__data
-
-    @data.setter
-    def data(self, value):
-        if not isinstance(value, int):
-            raise TypeError("data must be an integer")
-        self.__data = value
-
-    @property
-    def next_node(self):
-        return self.__next_node
-
-    @next_node.setter
-    def next_node(self, value):
-        if not isinstance(value, Node) and value is not None:
-            raise TypeError("next_node must be a Node object")
-        self.__next_node = value
+"""This module creates a Class Square"""
 
 
-class SinglyLinkedList:
-    def __str__(self):
-        rtn = ""
-        ptr = self.__head
+class Square:
+    """Class Square with a constuctor method"""
 
-        while ptr is not None:
-            rtn += str(ptr.data)
-            if ptr.next_node is not None:
-                rtn += "\n"
-            ptr = ptr.next_node
+    def __init__(self, size=0, position=(0, 0)):
+        """
+        Initializes square
 
-        return rtn
+        Args:
+            size: size for __size attribute
+            position: position for __position atributte
+        """
 
-    def __init__(self):
-        self.__head = None
+        if type(size) is not int:
+            raise TypeError("size must be an integer")
+        if size < 0:
+            raise ValueError("size must be >= 0")
+        self.__size = size
 
-    def sorted_insert(self, value):
-        ptr = self.__head
+        if type(position) is not tuple or len(position) != 2:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if (type(position[0]) is not int or type(position[1]) is not int):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if (position[0] < 0 or position[1] < 0):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = position
 
-        while ptr is not None:
-            if ptr.data > value:
-                break
-            ptr_prev = ptr
-            ptr = ptr.next_node
+    def area(self):
+        """
+        Brings the area of square
 
-        newNode = Node(value, ptr)
-        if ptr == self.__head:
-            self.__head = newNode
+        Returns:
+            The area of the square
+        """
+        return self.__size * self.__size
+
+    def my_print(self):
+        """
+        Prints the square with the character '#'
+        Prints the square in the given position (x, y)
+        """
+        if self.__size > 0:
+            for _ in range(self.__position[1]):
+                print()
+            for _ in range(self.__size):
+                for _ in range(self.__position[0]):
+                    print(" ", end="")
+                for _ in range(self.__size):
+                    print("#", end="")
+                print()
         else:
-            ptr_prev.next_node = newNode
+            print()
+
+    def __str__(self):
+        """
+        brings the string version of a square
+
+        Returns:
+            square in form of a string
+        """
+        square_str = ""
+        if self.__size > 0:
+            for _ in range(self.__position[1]):
+                square_str += "\n"
+            for i in range(self.__size):
+                for _ in range(self.__position[0]):
+                    square_str += " "
+                for _ in range(self.__size):
+                    square_str += "#"
+                if i < self.__size - 1:
+                    square_str += "\n"
+        else:
+            square_str += ""
+        return square_str
+
+    @property
+    def size(self):
+        """
+        getter function of size
+
+        Returns:
+            size of square
+        """
+        return self.__size
+
+    @size.setter
+    def size(self, value):
+        """
+        setter function of size
+
+        Args:
+            value: value for __size attribute
+        """
+        if type(value) is not int:
+            raise TypeError("size must be an integer")
+        if value < 0:
+            raise ValueError("size must be >= 0")
+
+        self.__size = value
+
+    @property
+    def position(self):
+        """
+        getter function of position
+
+        Returns:
+            position of square
+        """
+        return self.__position
+
+    @position.setter
+    def position(self, value):
+        """
+        setter function of position
+
+        Args:
+            value: value for __position attribute
+        """
+        if type(value) is not tuple or len(value) != 2:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if (type(value[0]) is not int or type(value[1]) is not int):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if (value[0] < 0 or value[1] < 0):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = value
