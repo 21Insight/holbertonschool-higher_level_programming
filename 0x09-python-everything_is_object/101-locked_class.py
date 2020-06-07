@@ -3,6 +3,7 @@
 
 
 class LockedClass:
+    """This is a class"""
     __slots__ = ['first_name']
 
     def __init__(self):
